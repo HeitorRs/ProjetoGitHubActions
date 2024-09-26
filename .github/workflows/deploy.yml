@@ -24,16 +24,18 @@ jobs:
         with:
           java-version: '17'
 
-      # Se o pom.xml está dentro de um subdiretório chamado ProjetoGitHubActions
+      # Mudar para o diretório do projeto onde está o pom.xml
       - name: Change directory to project folder
-        run: cd ProjetoGitHubActions
+        run: cd ProjetoGitHubActions  # Mude para o diretório correto, se necessário
 
       # Compilar o projeto com Maven
       - name: Build with Maven
+        working-directory: ProjetoGitHubActions
         run: mvn clean package
 
       # Executar testes
       - name: Run tests
+        working-directory: ProjetoGitHubActions
         run: mvn test
 
       # Salvar os artefatos da build
@@ -41,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: maven-build
-          path: target/*.jar
+          path: ProjetoGitHubActions/target/*.jar
